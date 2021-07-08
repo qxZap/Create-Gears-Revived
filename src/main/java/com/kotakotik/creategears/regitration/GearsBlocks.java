@@ -2,6 +2,7 @@ package com.kotakotik.creategears.regitration;
 
 import com.kotakotik.creategears.blocks.FullyEncasedBeltBlock;
 import com.kotakotik.creategears.blocks.GearBlock;
+import com.kotakotik.creategears.blocks.HalfShaftGearBlock;
 import com.kotakotik.creategears.blocks.SimpleGearshiftBlock;
 import com.kotakotik.creategears.util.Registration;
 import com.simibubi.create.AllBlocks;
@@ -14,12 +15,14 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 
 public class GearsBlocks extends Registration {
     public static BlockEntry<GearBlock> GEAR;
     public static BlockEntry<GearBlock> LARGE_GEAR;
+    public static BlockEntry<HalfShaftGearBlock> HALF_SHAFT_GEAR;
     public static BlockEntry<FullyEncasedBeltBlock> FULLY_ENCASED_CHAIN_DRIVE; // oof thats a loong name lmao
     public static BlockEntry<SimpleGearshiftBlock> SIMPLE_GEARSHIFT;
 
@@ -63,6 +66,20 @@ public class GearsBlocks extends Registration {
 
                     ctx.get().toCogwheelRecipe(AllBlocks.LARGE_COGWHEEL.get(), prov);
                     ctx.get().fromCogwheelRecipe(AllBlocks.LARGE_COGWHEEL.get(), prov);
+                })
+                .register();
+
+        HALF_SHAFT_GEAR = r.block("half_shaft_gear", (p) -> new HalfShaftGearBlock(false, p))
+                .item(CogwheelBlockItem::new).build()
+                .recipe((ctx, prov) -> {
+                    ShapedRecipeBuilder.shapedRecipe(ctx.get(), 8)
+                            .patternLine("www")
+                            .patternLine("waw")
+                            .patternLine("www")
+                            .key('w', ItemTags.BUTTONS)
+                            .key('a', Blocks.ANDESITE)
+                            .addCriterion("has_cogwheels", prov.hasItem(AllBlocks.COGWHEEL.get()))
+                            .build(prov);
                 })
                 .register();
 
