@@ -1,29 +1,21 @@
 package com.kotakotik.creategears.regitration;
 
 import com.kotakotik.creategears.Gears;
+import com.kotakotik.creategears.tiles.GearTile;
 import com.kotakotik.creategears.util.Registration;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllTileEntities;
-import com.simibubi.create.Create;
 import com.simibubi.create.content.contraptions.base.KineticTileEntityRenderer;
 import com.simibubi.create.content.contraptions.base.SingleRotatingInstance;
-import com.simibubi.create.content.contraptions.relays.elementary.SimpleKineticTileEntity;
-import com.simibubi.create.content.contraptions.relays.encased.*;
+import com.simibubi.create.content.contraptions.relays.encased.EncasedShaftTileEntity;
+import com.simibubi.create.content.contraptions.relays.encased.SplitShaftInstance;
+import com.simibubi.create.content.contraptions.relays.encased.SplitShaftRenderer;
 import com.simibubi.create.content.contraptions.relays.gearbox.GearshiftTileEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.render.backend.instancing.IRendererFactory;
-import com.simibubi.create.foundation.render.backend.instancing.InstancedTileRenderRegistry;
-import com.simibubi.create.repack.registrate.Registrate;
-import com.simibubi.create.repack.registrate.util.OneTimeEventReceiver;
 import com.simibubi.create.repack.registrate.util.entry.TileEntityEntry;
-import com.simibubi.create.repack.registrate.util.nullness.NonNullSupplier;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(modid= Gears.modid, bus=Mod.EventBusSubscriber.Bus.FORGE)
 public class GearsTiles extends Registration {
-    public static TileEntityEntry<SimpleKineticTileEntity> GEAR;
+    public static TileEntityEntry<GearTile> GEAR;
     public static TileEntityEntry<EncasedShaftTileEntity> FULLY_ENCASED_BELT;
     public static TileEntityEntry<GearshiftTileEntity> SIMPLE_GEARSHIFT;
 
@@ -33,7 +25,7 @@ public class GearsTiles extends Registration {
 
     @Override
     public void register() {
-        GEAR = r.tileEntity("gear", SimpleKineticTileEntity::new)
+        GEAR = r.tileEntity("gear", GearTile::new)
                 .instance(() -> SingleRotatingInstance::new)
                 .validBlocks(GearsBlocks.GEAR, GearsBlocks.LARGE_GEAR)
                 .renderer(() -> KineticTileEntityRenderer::new)
