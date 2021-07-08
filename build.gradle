@@ -194,7 +194,7 @@ dependencies {
     implementation fg.deobf("curse.maven:cogwheel-tweaker-465296:${cogwheeltweaker_file}")
     compile fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${crafttweaker_version}")
     implementation fg.deobf("curse.maven:cnt-237065:${contenttweaker_file}")
-    implementation fg.deobf("curse.maven:openloader-354339:${openloader_file}")
+//    runtimeOnly fg.deobf("curse.maven:openloader-354339:${openloader_file}")
 
     def registrate = "com.tterrag.registrate:Registrate:MC${registrate_version}"
     implementation fg.deobf(registrate)
