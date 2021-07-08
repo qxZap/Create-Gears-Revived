@@ -1,15 +1,17 @@
 package com.kotakotik.creategears.regitration;
 
-import com.kotakotik.creategears.blocks.SimpleGearshiftBlock;
 import com.kotakotik.creategears.blocks.FullyEncasedBeltBlock;
 import com.kotakotik.creategears.blocks.GearBlock;
+import com.kotakotik.creategears.blocks.SimpleGearshiftBlock;
 import com.kotakotik.creategears.util.Registration;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.relays.elementary.BracketedKineticBlockModel;
 import com.simibubi.create.content.contraptions.relays.elementary.CogwheelBlockItem;
 import com.simibubi.create.content.contraptions.relays.encased.EncasedBeltGenerator;
 import com.simibubi.create.foundation.config.StressConfigDefaults;
-import com.simibubi.create.foundation.data.*;
+import com.simibubi.create.foundation.data.BlockStateGen;
+import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.data.ShapedRecipeBuilder;
@@ -28,8 +30,8 @@ public class GearsBlocks extends Registration {
     @Override
     public void register() {
         GEAR = r.block("gear", (p) -> new GearBlock(false, p))
-                .item(CogwheelBlockItem::new).build()
-                .blockstate(BlockStateGen.axisBlockProvider(false))
+                .item(CogwheelBlockItem::new).model((c, p) -> {}).build()
+                .blockstate(($, $$) -> {})
                 .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
                 .recipe((ctx, prov) -> {
                     ShapedRecipeBuilder.shapedRecipe(ctx.get(), 8)
