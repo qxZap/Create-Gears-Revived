@@ -43,7 +43,11 @@ repositories {
 }
 
 group = 'com.kotakotik'
+String versionEnv = System.getenv("GEARS_VERSION")
 version = "${mc_version}-${version}"
+if(versionEnv != null) {
+    version ="${mc_version}_${versionEnv}"
+}
 archivesBaseName = 'creategears'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
