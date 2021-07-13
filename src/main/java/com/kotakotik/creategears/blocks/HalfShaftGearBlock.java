@@ -1,9 +1,7 @@
 package com.kotakotik.creategears.blocks;
 
-import com.kotakotik.creategears.util.ShapeBuilder;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.base.IRotate;
-import com.simibubi.create.content.contraptions.base.KineticBlock;
 import com.simibubi.create.content.contraptions.relays.advanced.SpeedControllerBlock;
 import com.simibubi.create.content.contraptions.relays.elementary.ICogWheel;
 import com.simibubi.create.foundation.utility.VoxelShaper;
@@ -22,10 +20,10 @@ import net.minecraft.world.World;
 
 public class HalfShaftGearBlock extends GearBlock {
     public VoxelShape shape = cuboid(2.0D, 6.0D, 2.0D, 14.0D, 10.0D, 14.0D);
-    public VoxelShaper shaper = new ShapeBuilder(shape).add(6.0D, 0.0D, 6.0D, 10.0D, 16.0D, 10.0D).forAxis();
+    public VoxelShaper shaper = shape(shape).add(6.0D, 0.0D, 6.0D, 10.0D, 16.0D, 10.0D).forAxis();
 
     public VoxelShape shapeLarge = cuboid(0.0D, 6.0D, 0.0D, 16.0D, 10.0D, 16.0D);
-    public VoxelShaper shaperLarge = new ShapeBuilder(shapeLarge).add(6.0D, 0.0D, 6.0D, 10.0D, 16.0D, 10.0D).forAxis();
+    public VoxelShaper shaperLarge = shape(shapeLarge).add(6.0D, 0.0D, 6.0D, 10.0D, 16.0D, 10.0D).forAxis();
 
     public HalfShaftGearBlock(boolean large, Properties p_i48440_1_) {
         super(large, p_i48440_1_);

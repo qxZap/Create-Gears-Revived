@@ -9,7 +9,7 @@ public interface ShapeUtils {
         return Block.makeCuboidShape(x1, y1, z1, x2, y2, z2);
     }
 
-    default ShapeBuilder shape(VoxelShape shape) {
-        return new ShapeBuilder(shape);
+    default AllShapes.Builder shape(VoxelShape shape) {
+        return new AllShapes.Builder(shape);
     }
 }
