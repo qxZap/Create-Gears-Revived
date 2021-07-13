@@ -83,6 +83,6 @@ public class HalfShaftGearBlock extends GearBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getStateForPlacement(context).with(BlockStateProperties.FACING, this.getDirectionForPlacement(context));
+        return super.getStateForPlacement(context).with(BlockStateProperties.FACING, this.getDirectionForPlacement(context));
     }
 }
