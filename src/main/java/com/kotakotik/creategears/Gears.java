@@ -1,6 +1,5 @@
 package com.kotakotik.creategears;
 
-import com.kotakotik.creategears.cogwheeltweakercompat.CTCRegistration;
 import com.kotakotik.creategears.regitration.GearsBlocks;
 import com.kotakotik.creategears.regitration.GearsPonder;
 import com.kotakotik.creategears.regitration.GearsTiles;
@@ -9,7 +8,6 @@ import com.simibubi.create.repack.registrate.util.OneTimeEventReceiver;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -28,8 +26,6 @@ public class Gears {
 
     public final CreateRegistrate REGISTRATE = CreateRegistrate.lazy(modid).get();
 
-    public static boolean isCogwheelTweakerLoaded;
-
     public static ItemGroup itemGroup = new ItemGroup(modid) {
         @Override
         public ItemStack createIcon() {
@@ -38,16 +34,8 @@ public class Gears {
     };
 
     public Gears() {
-        isCogwheelTweakerLoaded = ModList.get().isLoaded("cogwheeltweaker");
-
         // events
         MOD_EVENT_BUS = FMLJavaModLoadingContext.get().getModEventBus();
-
-        if(isCogwheelTweakerLoaded) {
-            CTCRegistration r = new CTCRegistration();
-            MOD_EVENT_BUS.register(r);
-            r.r();
-        }
 
         // registration
 
