@@ -1,0 +1,82 @@
+{
+  "variants": {
+    "axis=x,facing=down": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,facing=down": {
+      "model": "creategears:block/half_shaft_gear"
+    },
+    "axis=z,facing=down": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 180
+    },
+    "axis=x,facing=up": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,facing=up": {
+      "model": "creategears:block/half_shaft_gear"
+    },
+    "axis=z,facing=up": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 180
+    },
+    "axis=x,facing=north": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,facing=north": {
+      "model": "creategears:block/half_shaft_gear"
+    },
+    "axis=z,facing=north": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 180
+    },
+    "axis=x,facing=south": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,facing=south": {
+      "model": "creategears:block/half_shaft_gear"
+    },
+    "axis=z,facing=south": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 180
+    },
+    "axis=x,facing=west": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,facing=west": {
+      "model": "creategears:block/half_shaft_gear"
+    },
+    "axis=z,facing=west": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 180
+    },
+    "axis=x,facing=east": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,facing=east": {
+      "model": "creategears:block/half_shaft_gear"
+    },
+    "axis=z,facing=east": {
+      "model": "creategears:block/half_shaft_gear",
+      "x": 90,
+      "y": 180
+    }
+  }
+}
