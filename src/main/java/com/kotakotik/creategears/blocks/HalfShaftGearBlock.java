@@ -15,10 +15,10 @@ import net.minecraft.world.IWorldReader;
 
 public class HalfShaftGearBlock extends GearBlock {
     public VoxelShape shape = cuboid(2.0D, 6.0D, 2.0D, 14.0D, 10.0D, 14.0D);
-    public VoxelShaper shaper = shape(shape).add(6.0D, 0.0D, 6.0D, 10.0D, 16.0D, 10.0D).forAxis();
+    public VoxelShaper shaper = shape(shape).add(6.0D, 8, 6.0D, 10.0D, 16, 10.0D).forDirectional();
 
     public VoxelShape shapeLarge = cuboid(0.0D, 6.0D, 0.0D, 16.0D, 10.0D, 16.0D);
-    public VoxelShaper shaperLarge = shape(shapeLarge).add(6.0D, 0.0D, 6.0D, 10.0D, 16.0D, 10.0D).forAxis();
+    public VoxelShaper shaperLarge = shape(shapeLarge).add(6.0D, 8, 6.0D, 10.0D, 16.0D, 10.0D).forDirectional();
 
     public static final BooleanProperty AXIS_DIRECTION = BooleanProperty.create("axis_direction");
 
@@ -48,7 +48,8 @@ public class HalfShaftGearBlock extends GearBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return super.getShape(state, worldIn, pos, context);
+        Direction dir = Direction.fromAxisAndDirection(state.getValue(AXIS), boolToAxisDirection(state.getValue(AXIS_DIRECTION)));
+        return isLargeCog() ? shaperLarge.get(dir) : shaper.get(dir);
 //        return (isLargeCog() ? shaperLarge : shaper).get(state.get(BlockStateProperties.FACING));
     }
 
