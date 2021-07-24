@@ -14,8 +14,11 @@ import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
+import com.simibubi.create.repack.registrate.providers.DataGenContext;
+import com.simibubi.create.repack.registrate.providers.RegistrateBlockstateProvider;
 import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -27,6 +30,7 @@ public class GearsBlocks extends Registration {
     public static BlockEntry<GearBlock> GEAR;
     public static BlockEntry<GearBlock> LARGE_GEAR;
     public static BlockEntry<HalfShaftGearBlock> HALF_SHAFT_GEAR;
+    public static BlockEntry<HalfShaftGearBlock> LARGE_HALF_SHAFT_GEAR;
     public static BlockEntry<FullyEncasedBeltBlock> FULLY_ENCASED_CHAIN_DRIVE; // oof thats a loong name lmao
     public static BlockEntry<SimpleGearshiftBlock> SIMPLE_GEARSHIFT;
 
@@ -75,17 +79,7 @@ public class GearsBlocks extends Registration {
 
         HALF_SHAFT_GEAR = r.block("half_shaft_gear", (p) -> new HalfShaftGearBlock(false, p))
                 .item(CogwheelBlockItem::new).build()
-                .blockstate((ctx, prov) -> {
-                    prov.getVariantBuilder(ctx.getEntry()).forAllStatesExcept((state) -> {
-                        Direction.Axis axis = state.getValue(BlockStateProperties.AXIS);
-                        Direction.AxisDirection dir = HalfShaftGearBlock.boolToAxisDirection(state.getValue(HalfShaftGearBlock.AXIS_DIRECTION));
-                        return ConfiguredModel.builder()
-                                .modelFile(AssetLookup.standardModel(ctx, prov))
-                                .rotationX((axis == Direction.Axis.Y ? 0 : 90) + (axis.isVertical() && dir == Direction.AxisDirection.NEGATIVE ? 180 : 0))
-                                .rotationY((axis == Direction.Axis.X ? 90 : (axis == Direction.Axis.Z ? 180 : 0)) +
-                                        (axis.isHorizontal() && dir == Direction.AxisDirection.NEGATIVE ? 180 : 0)).build();
-                    }, BlockStateProperties.WATERLOGGED);
-                })
+                .blockstate(GearsBlocks::halfShaftGearState)
                 .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
                 .recipe((ctx, prov) -> {
                     ShapedRecipeBuilder.shaped(ctx.get(), 8)
@@ -95,6 +89,23 @@ public class GearsBlocks extends Registration {
                             .define('w', ItemTags.BUTTONS)
                             .define('a', Blocks.ANDESITE)
                             .unlockedBy("has_cogwheels", prov.hasItem(AllBlocks.COGWHEEL.get()))
+                            .save(prov);
+                })
+                .register();
+
+        LARGE_HALF_SHAFT_GEAR = r.block("large_half_shaft_gear", (p) -> new HalfShaftGearBlock(true, p))
+                .item(CogwheelBlockItem::new).build()
+                .blockstate(GearsBlocks::halfShaftGearState)
+                .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
+                .recipe((ctx, prov) -> {
+                    ShapedRecipeBuilder.shaped(ctx.get(), 2)
+                            .pattern("bwb")
+                            .pattern("waw")
+                            .pattern("bwb")
+                            .define('w', ItemTags.PLANKS)
+                            .define('b', ItemTags.BUTTONS)
+                            .define('a', Blocks.ANDESITE)
+                            .unlockedBy("has_large_cogwheels", prov.hasItem(AllBlocks.LARGE_COGWHEEL.get()))
                             .save(prov);
                 })
                 .register();
@@ -129,19 +140,31 @@ public class GearsBlocks extends Registration {
                 .item().model((ctx, prov) -> prov.blockItem(SIMPLE_GEARSHIFT, "/item")).build()
                 .blockstate((c, p) -> BlockStateGen.axisBlock(c, p, (b) -> p.models().getExistingFile(p.modLoc("block/simple_gearshift/block"))))
                 .recipe((ctx, prov) -> {
-                     ctx.get().recipe(
-                             ctx.get().recipe(prov)
-                                     .pattern("w")
-                                     .pattern("c")
-                                     .pattern("w"),
-                             prov, "vertical");
+                    ctx.get().recipe(
+                            ctx.get().recipe(prov)
+                                    .pattern("w")
+                                    .pattern("c")
+                                    .pattern("w"),
+                            prov, "vertical");
 
-                     ctx.get().recipe(
-                             ctx.get().recipe(prov)
-                                     .pattern("wcw"),
-                             prov, "horizontal"
-                     );
+                    ctx.get().recipe(
+                            ctx.get().recipe(prov)
+                                    .pattern("wcw"),
+                            prov, "horizontal"
+                    );
                 })
                 .register();
+    }
+
+    public static void halfShaftGearState(DataGenContext<Block, HalfShaftGearBlock> ctx, RegistrateBlockstateProvider prov) {
+        prov.getVariantBuilder(ctx.getEntry()).forAllStatesExcept((state) -> {
+            Direction.Axis axis = state.getValue(BlockStateProperties.AXIS);
+            Direction.AxisDirection dir = HalfShaftGearBlock.boolToAxisDirection(state.getValue(HalfShaftGearBlock.AXIS_DIRECTION));
+            return ConfiguredModel.builder()
+                    .modelFile(AssetLookup.standardModel(ctx, prov))
+                    .rotationX((axis == Direction.Axis.Y ? 0 : 90) + (axis.isVertical() && dir == Direction.AxisDirection.NEGATIVE ? 180 : 0))
+                    .rotationY((axis == Direction.Axis.X ? 90 : (axis == Direction.Axis.Z ? 180 : 0)) +
+                            (axis.isHorizontal() && dir == Direction.AxisDirection.NEGATIVE ? 180 : 0)).build();
+        }, BlockStateProperties.WATERLOGGED);
     }
 }
