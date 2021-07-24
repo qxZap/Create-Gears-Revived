@@ -10,6 +10,7 @@ import com.simibubi.create.content.contraptions.relays.elementary.BracketedKinet
 import com.simibubi.create.content.contraptions.relays.elementary.CogwheelBlockItem;
 import com.simibubi.create.content.contraptions.relays.encased.EncasedBeltGenerator;
 import com.simibubi.create.foundation.config.StressConfigDefaults;
+import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
@@ -17,7 +18,10 @@ import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Direction;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 
 public class GearsBlocks extends Registration {
     public static BlockEntry<GearBlock> GEAR;
@@ -71,7 +75,17 @@ public class GearsBlocks extends Registration {
 
         HALF_SHAFT_GEAR = r.block("half_shaft_gear", (p) -> new HalfShaftGearBlock(false, p))
                 .item(CogwheelBlockItem::new).build()
-                .blockstate(BlockStateGen.axisBlockProvider(false))
+                .blockstate((ctx, prov) -> {
+                    prov.getVariantBuilder(ctx.getEntry()).forAllStatesExcept((state) -> {
+                        Direction.Axis axis = state.getValue(BlockStateProperties.AXIS);
+                        Direction.AxisDirection dir = HalfShaftGearBlock.boolToAxisDirection(state.getValue(HalfShaftGearBlock.AXIS_DIRECTION));
+                        return ConfiguredModel.builder()
+                                .modelFile(AssetLookup.standardModel(ctx, prov))
+                                .rotationX((axis == Direction.Axis.Y ? 0 : 90) + (axis.isVertical() && dir == Direction.AxisDirection.NEGATIVE ? 180 : 0))
+                                .rotationY((axis == Direction.Axis.X ? 90 : (axis == Direction.Axis.Z ? 180 : 0)) +
+                                        (axis.isHorizontal() && dir == Direction.AxisDirection.NEGATIVE ? 180 : 0)).build();
+                    }, BlockStateProperties.WATERLOGGED);
+                })
                 .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
                 .recipe((ctx, prov) -> {
                     ShapedRecipeBuilder.shaped(ctx.get(), 8)
