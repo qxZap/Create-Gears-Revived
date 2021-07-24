@@ -27,7 +27,7 @@ public class GearsTiles extends Registration {
     public void register() {
         GEAR = r.tileEntity("gear", GearTile::new)
                 .instance(() -> SingleRotatingInstance::new)
-                .validBlocks(GearsBlocks.GEAR, GearsBlocks.LARGE_GEAR/*, GearsBlocks.HALF_SHAFT_GEAR*/)
+                .validBlocks(GearsBlocks.GEAR, GearsBlocks.LARGE_GEAR, GearsBlocks.HALF_SHAFT_GEAR)
                 .renderer(() -> KineticTileEntityRenderer::new)
                 .register();
 

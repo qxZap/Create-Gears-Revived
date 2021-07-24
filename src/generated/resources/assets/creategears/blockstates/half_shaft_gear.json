@@ -1,79 +1,27 @@
 {
   "variants": {
-    "axis=x,facing=down": {
+    "axis=x,axis_direction=false": {
       "model": "creategears:block/half_shaft_gear",
       "x": 90,
       "y": 90
     },
-    "axis=y,facing=down": {
+    "axis=y,axis_direction=false": {
       "model": "creategears:block/half_shaft_gear"
     },
-    "axis=z,facing=down": {
+    "axis=z,axis_direction=false": {
       "model": "creategears:block/half_shaft_gear",
       "x": 90,
       "y": 180
     },
-    "axis=x,facing=up": {
+    "axis=x,axis_direction=true": {
       "model": "creategears:block/half_shaft_gear",
       "x": 90,
       "y": 90
     },
-    "axis=y,facing=up": {
+    "axis=y,axis_direction=true": {
       "model": "creategears:block/half_shaft_gear"
     },
-    "axis=z,facing=up": {
-      "model": "creategears:block/half_shaft_gear",
-      "x": 90,
-      "y": 180
-    },
-    "axis=x,facing=north": {
-      "model": "creategears:block/half_shaft_gear",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,facing=north": {
-      "model": "creategears:block/half_shaft_gear"
-    },
-    "axis=z,facing=north": {
-      "model": "creategears:block/half_shaft_gear",
-      "x": 90,
-      "y": 180
-    },
-    "axis=x,facing=south": {
-      "model": "creategears:block/half_shaft_gear",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,facing=south": {
-      "model": "creategears:block/half_shaft_gear"
-    },
-    "axis=z,facing=south": {
-      "model": "creategears:block/half_shaft_gear",
-      "x": 90,
-      "y": 180
-    },
-    "axis=x,facing=west": {
-      "model": "creategears:block/half_shaft_gear",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,facing=west": {
-      "model": "creategears:block/half_shaft_gear"
-    },
-    "axis=z,facing=west": {
-      "model": "creategears:block/half_shaft_gear",
-      "x": 90,
-      "y": 180
-    },
-    "axis=x,facing=east": {
-      "model": "creategears:block/half_shaft_gear",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y,facing=east": {
-      "model": "creategears:block/half_shaft_gear"
-    },
-    "axis=z,facing=east": {
+    "axis=z,axis_direction=true": {
       "model": "creategears:block/half_shaft_gear",
       "x": 90,
       "y": 180

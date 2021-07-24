@@ -15,6 +15,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.repack.registrate.util.entry.BlockEntry;
 import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 
@@ -68,20 +69,21 @@ public class GearsBlocks extends Registration {
                 })
                 .register();
 
-//        HALF_SHAFT_GEAR = r.block("half_shaft_gear", (p) -> new HalfShaftGearBlock(false, p))
-//                .item(CogwheelBlockItem::new).build()
-//                .blockstate(BlockStateGen.axisBlockProvider(false))
-//                .recipe((ctx, prov) -> {
-//                    ShapedRecipeBuilder.shapedRecipe(ctx.get(), 8)
-//                            .patternLine("www")
-//                            .patternLine("waw")
-//                            .patternLine("www")
-//                            .key('w', ItemTags.BUTTONS)
-//                            .key('a', Blocks.ANDESITE)
-//                            .addCriterion("has_cogwheels", prov.hasItem(AllBlocks.COGWHEEL.get()))
-//                            .build(prov);
-//                })
-//                .register();
+        HALF_SHAFT_GEAR = r.block("half_shaft_gear", (p) -> new HalfShaftGearBlock(false, p))
+                .item(CogwheelBlockItem::new).build()
+                .blockstate(BlockStateGen.axisBlockProvider(false))
+                .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
+                .recipe((ctx, prov) -> {
+                    ShapedRecipeBuilder.shapedRecipe(ctx.get(), 8)
+                            .patternLine("www")
+                            .patternLine("waw")
+                            .patternLine("www")
+                            .key('w', ItemTags.BUTTONS)
+                            .key('a', Blocks.ANDESITE)
+                            .addCriterion("has_cogwheels", prov.hasItem(AllBlocks.COGWHEEL.get()))
+                            .build(prov);
+                })
+                .register();
 
         FULLY_ENCASED_CHAIN_DRIVE = r.block("fully_encased_chain_drive", FullyEncasedBeltBlock::new)
                 .transform(StressConfigDefaults.setNoImpact())
