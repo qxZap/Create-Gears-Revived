@@ -33,7 +33,6 @@ public class GearsTiles extends Registration {
 
         FULLY_ENCASED_BELT = r.tileEntity("fully_encased_shaft", EncasedShaftTileEntity::new)
                 .validBlock(GearsBlocks.FULLY_ENCASED_CHAIN_DRIVE)
-                .renderer(() -> KineticTileEntityRenderer::new)
                 .register();
 
         SIMPLE_GEARSHIFT = r.tileEntity("simple_gearshift", GearshiftTileEntity::new)
