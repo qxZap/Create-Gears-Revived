@@ -17,12 +17,12 @@ import net.minecraft.world.World;
 public class SimpleGearshiftBlock extends GearshiftBlock implements GenericUtils {
     public SimpleGearshiftBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(POWERED, true));
+        this.registerDefaultState(this.defaultBlockState().setValue(POWERED, true));
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return super.getStateForPlacement(context).with(POWERED, true);
+        return super.getStateForPlacement(context).setValue(POWERED, true);
     }
 
     @Override
@@ -36,13 +36,13 @@ public class SimpleGearshiftBlock extends GearshiftBlock implements GenericUtils
     }
 
     public ShapedRecipeBuilder recipe(RegistrateRecipeProvider prov) {
-        return ShapedRecipeBuilder.shapedRecipe(this)
-                .key('c', AllBlocks.ANDESITE_CASING.get())
-                .key('w', AllBlocks.COGWHEEL.get())
-                .addCriterion("has_cogwheel", prov.hasItem(AllBlocks.COGWHEEL.get()));
+        return ShapedRecipeBuilder.shaped(this)
+                .define('c', AllBlocks.ANDESITE_CASING.get())
+                .define('w', AllBlocks.COGWHEEL.get())
+                .unlockedBy("has_cogwheel", prov.hasItem(AllBlocks.COGWHEEL.get()));
     }
 
     public void recipe(ShapedRecipeBuilder builder, RegistrateRecipeProvider prov, String type) {
-        builder.build(prov, modLoc(getRegistryName().getPath() + "_" + type));
+        builder.save(prov, modLoc(getRegistryName().getPath() + "_" + type));
     }
 }

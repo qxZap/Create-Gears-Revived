@@ -69,9 +69,10 @@ minecraft {
         client {
             workingDirectory project.file('run')
 
-            jvmArgs "-Dmixin.env.disableRefMap=true"
+            property 'mixin.env.remapRefMap', 'true'
             arg '-mixin.config=creategears.mixins.json'
-
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
@@ -88,7 +89,8 @@ minecraft {
         server {
             workingDirectory project.file("server")
 
-            jvmArgs "-Dmixin.env.disableRefMap=true"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             arg '-mixin.config=creategears.mixins.json'
 
             // Recommended logging data for a userdev environment
@@ -107,7 +109,8 @@ minecraft {
         data {
             workingDirectory project.file('run')
 
-            jvmArgs "-Dmixin.env.disableRefMap=true"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'

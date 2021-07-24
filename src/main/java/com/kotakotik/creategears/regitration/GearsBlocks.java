@@ -37,13 +37,13 @@ public class GearsBlocks extends Registration {
                 .blockstate(($, $$) -> {})
                 .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
                 .recipe((ctx, prov) -> {
-                    ShapedRecipeBuilder.shapedRecipe(ctx.get(), 8)
-                            .patternLine("www")
-                            .patternLine("w w")
-                            .patternLine("www")
-                            .key('w', ItemTags.BUTTONS)
-                            .addCriterion("has_cogwheels", prov.hasItem(AllBlocks.COGWHEEL.get()))
-                            .build(prov);
+                    ShapedRecipeBuilder.shaped(ctx.get(), 8)
+                            .pattern("www")
+                            .pattern("w w")
+                            .pattern("www")
+                            .define('w', ItemTags.BUTTONS)
+                            .unlockedBy("has_cogwheels", prov.hasItem(AllBlocks.COGWHEEL.get()))
+                            .save(prov);
 
                     ctx.get().toCogwheelRecipe(AllBlocks.COGWHEEL.get(), prov);
                     ctx.get().fromCogwheelRecipe(AllBlocks.COGWHEEL.get(), prov);
@@ -55,14 +55,14 @@ public class GearsBlocks extends Registration {
                 .blockstate(BlockStateGen.axisBlockProvider(false))
                 .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
                 .recipe((ctx, prov) -> {
-                    ShapedRecipeBuilder.shapedRecipe(ctx.get(), 2)
-                            .patternLine("bwb")
-                            .patternLine("w w")
-                            .patternLine("bwb")
-                            .key('w', ItemTags.PLANKS)
-                            .key('b', ItemTags.BUTTONS)
-                            .addCriterion("has_large_cogwheels", prov.hasItem(AllBlocks.LARGE_COGWHEEL.get()))
-                            .build(prov);
+                    ShapedRecipeBuilder.shaped(ctx.get(), 2)
+                            .pattern("bwb")
+                            .pattern("w w")
+                            .pattern("bwb")
+                            .define('w', ItemTags.PLANKS)
+                            .define('b', ItemTags.BUTTONS)
+                            .unlockedBy("has_large_cogwheels", prov.hasItem(AllBlocks.LARGE_COGWHEEL.get()))
+                            .save(prov);
 
                     ctx.get().toCogwheelRecipe(AllBlocks.LARGE_COGWHEEL.get(), prov);
                     ctx.get().fromCogwheelRecipe(AllBlocks.LARGE_COGWHEEL.get(), prov);
@@ -74,14 +74,14 @@ public class GearsBlocks extends Registration {
                 .blockstate(BlockStateGen.axisBlockProvider(false))
                 .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
                 .recipe((ctx, prov) -> {
-                    ShapedRecipeBuilder.shapedRecipe(ctx.get(), 8)
-                            .patternLine("www")
-                            .patternLine("waw")
-                            .patternLine("www")
-                            .key('w', ItemTags.BUTTONS)
-                            .key('a', Blocks.ANDESITE)
-                            .addCriterion("has_cogwheels", prov.hasItem(AllBlocks.COGWHEEL.get()))
-                            .build(prov);
+                    ShapedRecipeBuilder.shaped(ctx.get(), 8)
+                            .pattern("www")
+                            .pattern("waw")
+                            .pattern("www")
+                            .define('w', ItemTags.BUTTONS)
+                            .define('a', Blocks.ANDESITE)
+                            .unlockedBy("has_cogwheels", prov.hasItem(AllBlocks.COGWHEEL.get()))
+                            .save(prov);
                 })
                 .register();
 
@@ -95,14 +95,14 @@ public class GearsBlocks extends Registration {
                 .recipe((ctx, prov) -> {
                     ctx.get().fullyEncasedChainDriveRecipe(
                             ctx.get().fullyEncasedChainDriveRecipe(prov)
-                                .patternLine("s")
-                                .patternLine("c")
-                                .patternLine("s"),
+                                    .pattern("s")
+                                    .pattern("c")
+                                    .pattern("s"),
                             prov, "vertical");
 
                     ctx.get().fullyEncasedChainDriveRecipe(
                             ctx.get().fullyEncasedChainDriveRecipe(prov)
-                                    .patternLine("scs"),
+                                    .pattern("scs"),
                             prov, "horizontal"
                     );
                 })
@@ -110,21 +110,21 @@ public class GearsBlocks extends Registration {
 
         SIMPLE_GEARSHIFT = r.block("simple_gearshift", SimpleGearshiftBlock::new)
                 .initialProperties(SharedProperties::stone)
-                .properties(AbstractBlock.Properties::nonOpaque)
+                .properties(AbstractBlock.Properties::noOcclusion)
                 .transform(StressConfigDefaults.setNoImpact())
                 .item().model((ctx, prov) -> prov.blockItem(SIMPLE_GEARSHIFT, "/item")).build()
                 .blockstate((c, p) -> BlockStateGen.axisBlock(c, p, (b) -> p.models().getExistingFile(p.modLoc("block/simple_gearshift/block"))))
                 .recipe((ctx, prov) -> {
                      ctx.get().recipe(
                              ctx.get().recipe(prov)
-                                .patternLine("w")
-                                .patternLine("c")
-                                .patternLine("w"),
+                                     .pattern("w")
+                                     .pattern("c")
+                                     .pattern("w"),
                              prov, "vertical");
 
                      ctx.get().recipe(
                              ctx.get().recipe(prov)
-                                .patternLine("wcw"),
+                                     .pattern("wcw"),
                              prov, "horizontal"
                      );
                 })

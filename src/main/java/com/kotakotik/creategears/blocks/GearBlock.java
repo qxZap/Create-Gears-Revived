@@ -30,7 +30,7 @@ public class GearBlock extends CogWheelBlock implements ShapeUtils, GenericUtils
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return (isLargeCog() ? shaperLarge : shaper).get(state.get(AXIS));
+        return (isLargeCog() ? shaperLarge : shaper).get(state.getValue(AXIS));
     }
 
     @Override
@@ -44,16 +44,16 @@ public class GearBlock extends CogWheelBlock implements ShapeUtils, GenericUtils
     }
 
     public void toCogwheelRecipe(CogWheelBlock cogwheel, RegistrateRecipeProvider prov) {
-        ShapelessRecipeBuilder.shapelessRecipe(cogwheel)
-                .addIngredient(this).addIngredient(AllItems.ANDESITE_ALLOY.get())
-                .addCriterion("has_gear", RegistrateRecipeProvider.hasItem(this))
-                .build(prov, modLoc((cogwheel.isLargeCog() ? "large_" : "") + "gear_to_cogwheel"));
+        ShapelessRecipeBuilder.shapeless(cogwheel)
+                .requires(this).requires(AllItems.ANDESITE_ALLOY.get())
+                .unlockedBy("has_gear", RegistrateRecipeProvider.hasItem(this))
+                .save(prov, modLoc((cogwheel.isLargeCog() ? "large_" : "") + "gear_to_cogwheel"));
     }
 
     public void fromCogwheelRecipe(CogWheelBlock cogwheel, RegistrateRecipeProvider prov) {
-        ShapelessRecipeBuilder.shapelessRecipe(this)
-                .addIngredient(cogwheel)
-                .addCriterion("has_cogwheel", RegistrateRecipeProvider.hasItem(cogwheel))
-                .build(prov, modLoc((cogwheel.isLargeCog() ? "large_" : "") + "gear_from_cogwheel"));
+        ShapelessRecipeBuilder.shapeless(this)
+                .requires(cogwheel)
+                .unlockedBy("has_cogwheel", RegistrateRecipeProvider.hasItem(cogwheel))
+                .save(prov, modLoc((cogwheel.isLargeCog() ? "large_" : "") + "gear_from_cogwheel"));
     }
 }

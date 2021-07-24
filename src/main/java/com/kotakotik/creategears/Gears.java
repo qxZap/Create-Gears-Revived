@@ -28,7 +28,7 @@ public class Gears {
 
     public static ItemGroup itemGroup = new ItemGroup(modid) {
         @Override
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(GearsBlocks.GEAR.get());
         }
     };

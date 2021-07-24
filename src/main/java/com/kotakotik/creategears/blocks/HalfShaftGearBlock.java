@@ -24,7 +24,7 @@ public class HalfShaftGearBlock extends GearBlock {
 
     public HalfShaftGearBlock(boolean large, Properties p_i48440_1_) {
         super(large, p_i48440_1_);
-        setDefaultState(this.getDefaultState().with(AXIS_DIRECTION, axisDirectionToBool(Direction.AxisDirection.POSITIVE)));
+        registerDefaultState(this.defaultBlockState().setValue(AXIS_DIRECTION, axisDirectionToBool(Direction.AxisDirection.POSITIVE)));
     }
 
     public static boolean axisDirectionToBool(Direction.AxisDirection dir) {
@@ -36,14 +36,14 @@ public class HalfShaftGearBlock extends GearBlock {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(AXIS_DIRECTION);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
     public boolean hasShaftTowards(IWorldReader world, BlockPos pos, BlockState state, Direction face) {
-        return face.getAxis() == state.get(AXIS) && face.getAxisDirection() == boolToAxisDirection(state.get(AXIS_DIRECTION));
+        return face.getAxis() == state.getValue(AXIS) && face.getAxisDirection() == boolToAxisDirection(state.getValue(AXIS_DIRECTION));
     }
 
     @Override
@@ -55,9 +55,9 @@ public class HalfShaftGearBlock extends GearBlock {
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         // shut up
-        Direction dir = context.getFace().getOpposite();
+        Direction dir = context.getClickedFace().getOpposite();
         boolean b = axisDirectionToBool(dir.getAxisDirection());
         Direction.Axis a = dir.getAxis();
-        return super.getStateForPlacement(context).with(AXIS_DIRECTION, context.getPlayer().isSneaking() != b).with(AXIS, a);
+        return super.getStateForPlacement(context).setValue(AXIS_DIRECTION, context.getPlayer().isShiftKeyDown() != b).setValue(AXIS, a);
     }
 }
