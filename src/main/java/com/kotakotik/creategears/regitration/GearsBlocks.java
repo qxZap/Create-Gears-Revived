@@ -9,7 +9,6 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.relays.elementary.BracketedKineticBlockModel;
 import com.simibubi.create.content.contraptions.relays.elementary.CogwheelBlockItem;
 import com.simibubi.create.content.contraptions.relays.encased.EncasedBeltGenerator;
-import com.simibubi.create.foundation.config.StressConfigDefaults;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -111,7 +110,7 @@ public class GearsBlocks extends Registration {
                 .register();
 
         FULLY_ENCASED_CHAIN_DRIVE = r.block("fully_encased_chain_drive", FullyEncasedBeltBlock::new)
-                .transform(StressConfigDefaults.setNoImpact())
+                .transform(GearsStressProvider.registerImpactCopying(AllBlocks.ENCASED_CHAIN_DRIVE))
                 .item().model((ctx, prov) -> prov.blockItem(FULLY_ENCASED_CHAIN_DRIVE, "/item")).build()
                 .blockstate((c, p) ->  // i hope i never have to read this mess
                         (new EncasedBeltGenerator((state, suffix) ->
@@ -136,7 +135,7 @@ public class GearsBlocks extends Registration {
         SIMPLE_GEARSHIFT = r.block("simple_gearshift", SimpleGearshiftBlock::new)
                 .initialProperties(SharedProperties::stone)
                 .properties(AbstractBlock.Properties::noOcclusion)
-                .transform(StressConfigDefaults.setNoImpact())
+                .transform(GearsStressProvider.registerImpactCopying(AllBlocks.GEARSHIFT))
                 .item().model((ctx, prov) -> prov.blockItem(SIMPLE_GEARSHIFT, "/item")).build()
                 .blockstate((c, p) -> BlockStateGen.axisBlock(c, p, (b) -> p.models().getExistingFile(p.modLoc("block/simple_gearshift/block"))))
                 .recipe((ctx, prov) -> {

@@ -47,24 +47,18 @@ A mod that adds gears to Create, like cogwheels but without the shaft part!
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering = "NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
-    side = "BOTH"
-    # Here's another dependency
+side = "BOTH"
+# Here's another dependency
 [[dependencies.creategears]]
-    modId = "minecraft"
-    mandatory = true
-    # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange = "[1.16.5,1.17)"
-    ordering = "NONE"
-    side = "BOTH"
+modId = "minecraft"
+mandatory = true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+versionRange = "[1.16.5,1.17)"
+ordering = "NONE"
+side = "BOTH"
 [[dependencies.creategears]]
-    modId = "create"
-    mandatory = true
-    versionRange = "mc1.16.5_v0.3.1c" #idk lol
-    ordering = "NONE"
-    side = "BOTH"
-[[dependencies.creategears]]
-    modId="contenttweaker"
-    mandatory = false
-    versionRange = "1.0.0.develop.11"
-    ordering = "NONE"
-    side = "BOTH"
+modId = "create"
+mandatory = true
+versionRange = "[v0.3.2c for 1.16.5,v0.3.2d for 1.16.5)"
+ordering = "AFTER"
+side = "BOTH"

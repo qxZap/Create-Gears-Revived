@@ -2,7 +2,9 @@ package com.kotakotik.creategears;
 
 import com.kotakotik.creategears.regitration.GearsBlocks;
 import com.kotakotik.creategears.regitration.GearsPonder;
+import com.kotakotik.creategears.regitration.GearsStressProvider;
 import com.kotakotik.creategears.regitration.GearsTiles;
+import com.simibubi.create.foundation.block.BlockStressValues;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.repack.registrate.util.OneTimeEventReceiver;
 import net.minecraft.item.ItemGroup;
@@ -34,6 +36,8 @@ public class Gears {
     };
 
     public Gears() {
+        BlockStressValues.registerProvider(modid, new GearsStressProvider());
+
         // events
         MOD_EVENT_BUS = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -42,7 +46,7 @@ public class Gears {
 //        GearsConfig.register();
 //        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GearsConfig.CONFIG, "gears.toml");
 
-        REGISTRATE.itemGroup(()->itemGroup, "Create Gears");
+        REGISTRATE.itemGroup(() -> itemGroup, "Create Gears");
         new GearsBlocks(REGISTRATE).register();
         new GearsTiles(REGISTRATE).register();
 

@@ -1,15 +1,14 @@
 package com.kotakotik.creategears.regitration;
 
-import com.simibubi.create.AllBlocks;
+import com.kotakotik.creategears.Gears;
 import com.simibubi.create.foundation.ponder.PonderRegistry;
-import com.simibubi.create.foundation.ponder.SceneBuilder;
-import com.simibubi.create.foundation.ponder.SceneBuildingUtil;
-import com.simibubi.create.foundation.ponder.content.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.simibubi.create.foundation.ponder.content.ChainDriveScenes;
+import com.simibubi.create.foundation.ponder.content.KineticsScenes;
+import com.simibubi.create.foundation.ponder.content.PonderTag;
 
 public class GearsPonder {
     public static void register() {
+        PonderRegistry.startRegistration(Gears.modid);
         // i gotta go sleep
         // but what if i forget what i was doing when i wake up
         // nah better finish this
@@ -30,10 +29,12 @@ public class GearsPonder {
         PonderRegistry.forComponents(GearsBlocks.SIMPLE_GEARSHIFT)
                 .addStoryBoard("gearshift", KineticsScenes::gearshift);
 
-        PonderRegistry.tags.forTag(PonderTag.KINETIC_RELAYS)
+        PonderRegistry.TAGS.forTag(PonderTag.KINETIC_RELAYS)
                 .add(GearsBlocks.GEAR)
                 .add(GearsBlocks.LARGE_GEAR)
                 .add(GearsBlocks.FULLY_ENCASED_CHAIN_DRIVE)
                 .add(GearsBlocks.SIMPLE_GEARSHIFT);
+
+        PonderRegistry.endRegistration();
     }
 }
