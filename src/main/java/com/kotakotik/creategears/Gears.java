@@ -50,8 +50,8 @@ public class Gears {
         new GearsBlocks(REGISTRATE).register();
         new GearsTiles(REGISTRATE).register();
 
-        OneTimeEventReceiver.addListener(MOD_EVENT_BUS, FMLClientSetupEvent.class, ($) -> {
-            GearsPonder.register();
+        OneTimeEventReceiver.addListener(MOD_EVENT_BUS, FMLClientSetupEvent.class, (event) -> {
+            event.enqueueWork(GearsPonder::register);
         });
     }
 }
