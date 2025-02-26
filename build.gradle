@@ -1,12 +1,16 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://maven.parchmentmc.org' }
         jcenter()
         mavenCentral()
         maven {url='https://repo.spongepowered.org/maven'}
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+        annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+
         classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.1.0'
         classpath 'com.wynprice.cursemaven:CurseMaven:2.1.3'
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
@@ -18,14 +22,15 @@ buildscript {
 // and me too a little
 
 plugins {
-    id "com.wynprice.cursemaven" version "2.1.3"
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'com.matthewprenger.cursegradle'
-apply plugin: 'com.wynprice.cursemaven'
+apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 repositories {
     maven {
@@ -151,7 +156,8 @@ reobf {
 
 task deobfJar(type: Jar) {
     from sourceSets.main.output
-    classifier 'deobf'
+    setArchiveClassifier("deobf")
+    // archiveClassifier 'deobf'
 }
 
 def reobfFile = file("$buildDir/reobfJar/output.jar")
@@ -196,8 +202,7 @@ dependencies {
 
     implementation fg.deobf("mezz.jei:jei-${jei_version}")
 
-    implementation fg.deobf("curse.maven:create-328085:${create_file_id}")
-    implementation fg.deobf("com.jozufozu.flywheel:Flywheel:${flywheel_version}")
+    implementation fg.deobf("curse.maven:create-4835191:${create_file_id}")
 
 //    implementation fg.deobf("curse.maven:cogwheel-tweaker-465296:${cogwheeltweaker_file}")
 //    compile fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${crafttweaker_version}")
